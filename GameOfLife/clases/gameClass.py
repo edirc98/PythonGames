@@ -13,7 +13,6 @@ class Board:
         self.__ncY = y
 
 
-
     #Num cells
     def get_numCellX(self):
         return self.__ncX
@@ -29,7 +28,7 @@ class Board:
     #GameState
     def get_GameState(self):
         return self.__GameState
-    def set_GameState(self,newGameState)
+    def set_GameState(self,newGameState):
         self.__GameState = np.copy(newGameState)
 
     #newGameState
