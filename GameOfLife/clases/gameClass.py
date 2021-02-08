@@ -26,12 +26,16 @@ class Board:
         return self.__dimH    
 
     #GameState
+    def get_CellGameState(self,x,y):
+        return self.__GameState[x,y]
     def get_GameState(self):
         return self.__GameState
     def set_GameState(self,newGameState):
         self.__GameState = np.copy(newGameState)
 
     #newGameState
+    def get_CellnewGameState(self,x,y):
+        return self.__newGameState[x,y]
     def get_newGameState(self):
         return self.__newGameState
     def set_newGamestate(self,newGameState):
@@ -56,3 +60,9 @@ class Board:
     def mousePosToCell(posX,posY):
         cellX,CellY = int(np.floor(posX / dimCW)), int(np.floor(posY/dimCH))
         return cellX,CellY
+
+    def num_Neigh(self,x,y):
+       return self.__GameState[(x-1) % self.__ncX,(y-1) % self.__ncY] + self.__GameState[(x)   % self.__ncX,(y-1) % self.__ncY] + \
+              self.__GameState[(x+1) % self.__ncX,(y-1) % self.__ncY] + self.__GameState[(x-1) % self.__ncX,(y)   % self.__ncY] + \
+              self.__GameState[(x+1) % self.__ncX,(y)   % self.__ncY] + self.__GameState[(x-1) % self.__ncX,(y+1) % self.__ncY] + \
+              self.__GameState[(x)   % self.__ncX,(y+1) % self.__ncY] + self.__GameState[(x+1) % self.__ncX,(y+1) % self.__ncY]
