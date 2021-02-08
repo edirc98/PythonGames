@@ -1,12 +1,13 @@
 #Conway's Game Of Life - Main 
 from clases.gameClass import Board
 import pygame
-
+import time
 
 #Colors
 BG_COLOR = (10,10,10)
-ALIVE_COLOR = (255,255,255)
+ALIVE_COLOR = (63,255,82)
 DEAD_COLOR = (128,128,128)
+PAUSED_COLOR = (255,255,128)
 
 pygame.init()
 #Screen width and heigh
@@ -27,7 +28,8 @@ def main():
     #main execution loop
     while not ExitGame:
         #Screen refill
-        screen.fill(BG_COLOR)
+        if not PauseExecution:
+            screen.fill(BG_COLOR)
         game.set_newGamestate(game.get_GameState())
 
         #EVENTS CONTROL
@@ -38,6 +40,21 @@ def main():
             if event.type == pygame.KEYDOWN:
                 PauseExecution = not PauseExecution
 
+        #MouseDetection
+        mouseClick = pygame.mouse.get_pressed()
+
+        #Set a live cell(Left Click)
+        if mouseClick[0] == 1: 
+            posX,posY = pygame.mouse.get_pos()
+            cellX,cellY = game.mousePosToCell(posX,posY)
+            game.ChangeCellStatus(cellX,cellY,1)
+
+        #Kill a cell(Right Click)
+        elif mouseClick[2] == 1:
+            posX,posY = pygame.mouse.get_pos()
+            cellX,cellY = game.mousePosToCell(posX,posY)
+            game.ChangeCellStatus(cellX,cellY,0)
+        
         for x in range(0,game.get_numCellX()):
             for y in range(0,game.get_numCellY()):
 
@@ -59,10 +76,18 @@ def main():
                 poly = game.createPoly(x,y)
                 if game.get_CellnewGameState(x,y) == 0:
                     pygame.draw.polygon(screen,DEAD_COLOR,poly,2)
+
+                elif PauseExecution and game.get_CellnewGameState(x,y) == 1:
+                    pygame.draw.polygon(screen,PAUSED_COLOR,poly,0)
+
+                elif PauseExecution and game.get_CellnewGameState(x,y) == 0:
+                    pygame.draw.polygon(screen,DEAD_COLOR,poly,0)
+                      
                 else:
                     pygame.draw.polygon(screen,ALIVE_COLOR,poly,0)  
 
         game.set_GameState(game.get_newGameState())
         pygame.display.flip()
+        time.sleep(0.1)
 
 main()

@@ -57,8 +57,8 @@ class Board:
                ((x)   * self.__dimW, (y+1) * self.__dimH)]
         return poly
 
-    def mousePosToCell(posX,posY):
-        cellX,CellY = int(np.floor(posX / dimCW)), int(np.floor(posY/dimCH))
+    def mousePosToCell(self,posX,posY):
+        cellX,CellY = int(np.floor(posX / self.__dimW)), int(np.floor(posY/self.__dimW))
         return cellX,CellY
 
     def num_Neigh(self,x,y):
