@@ -11,14 +11,12 @@ PAUSED_COLOR = (255,255,128)
 
 pygame.init()
 #Screen width and heigh
-width,heigh = 800,800
+width,heigh = 500,500
 screen = pygame.display.set_mode((heigh,width))
 screen.fill(BG_COLOR)
 
 game = Board(30,30)
 game.CellWidthHeigh(width,heigh)
-
-
 
 
 def main():
@@ -28,8 +26,7 @@ def main():
     #main execution loop
     while not ExitGame:
         #Screen refill
-        if not PauseExecution:
-            screen.fill(BG_COLOR)
+        screen.fill(BG_COLOR)
         game.set_newGamestate(game.get_GameState())
 
         #EVENTS CONTROL
@@ -81,7 +78,7 @@ def main():
                     pygame.draw.polygon(screen,PAUSED_COLOR,poly,0)
 
                 elif PauseExecution and game.get_CellnewGameState(x,y) == 0:
-                    pygame.draw.polygon(screen,DEAD_COLOR,poly,0)
+                    pygame.draw.polygon(screen,DEAD_COLOR,poly,2)
                       
                 else:
                     pygame.draw.polygon(screen,ALIVE_COLOR,poly,0)  
@@ -89,5 +86,8 @@ def main():
         game.set_GameState(game.get_newGameState())
         pygame.display.flip()
         time.sleep(0.1)
+    
 
+#Execution    
 main()
+pygame.quit()
