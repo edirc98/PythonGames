@@ -13,11 +13,10 @@ screen_width,screen_heigh = 1280,720
 screen = pygame.display.set_mode((screen_width,screen_heigh))
 pygame.display.set_caption("Pong")
 screen.fill(BG_COLOR)
-#Control variables
-playerSpeed = 7
+
 #Player instances
-player = Player(10,80,20,(screen_heigh/2)-40,screen)
-opponent = Player(10,80,screen_width - 20,(screen_heigh/2)-40,screen)
+player = Player(10,80,20,(screen_heigh/2)-40,7,screen)
+opponent = Player(10,80,screen_width - 20,(screen_heigh/2)-40,7,screen)
 ball = Ball(20,20,(screen_width/2) - 10,(screen_heigh/2) - 10,7,screen)
 def main():
     #Execution boolean
@@ -36,14 +35,14 @@ def main():
         #Update            
         keypressed = pygame.key.get_pressed()
         if keypressed[pygame.K_w]:
-            player.move(-playerSpeed)
+            player.move(-1)
         if keypressed[pygame.K_s]:
-            player.move(playerSpeed)
+            player.move(1)
 
         if keypressed[pygame.K_o]:
-            opponent.move(-playerSpeed)
+            opponent.move(-1)
         if keypressed[pygame.K_l]:
-            opponent.move(playerSpeed)
+            opponent.move(1)
 
 
         #Draw Elements
