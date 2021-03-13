@@ -12,5 +12,9 @@ class Player:
     #Functions
     def move(self,dir):
         self.__rect.y += (self.__speed*dir)
+    def collisions(self,ball):
+        if self.__rect.colliderect(ball.get_rect()):
+            ball.playerCollision()
+
     def draw(self):
         pygame.draw.rect(self.__screen,self.__color,self.__rect)
