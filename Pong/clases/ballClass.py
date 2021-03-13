@@ -19,11 +19,17 @@ class Ball:
     def bouncy(self):
         if self.__rect.top <= 0 or self.__rect.bottom >= self.__screen.get_height():
             self.__speed[1] *= -1
-        if self.__rect.left <=0 or self.__rect.right >= self.__screen.get_width():
-            self.ballRestart()
+        
     def playerCollision(self):
         self.__speed[0] *= -1
-    
+    def UpdateScore(self,player,opponent):
+        if self.__rect.left <=0:
+            opponent.updateScore()
+            self.ballRestart()
+        if self.__rect.right >= self.__screen.get_width():
+            player.updateScore()
+            self.ballRestart()
+
     def ballRestart(self):
         self.__rect.center = (self.__screen.get_width()/2,self.__screen.get_height()/2)
         self.__speed[0] *= random.choice((1,-1))

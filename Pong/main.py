@@ -9,10 +9,14 @@ BG_COLOR = pygame.Color(40,40,40)
 pygame.init()
 clock = pygame.time.Clock()
 #Screen width and heigh
+
 screen_width,screen_heigh = 1280,720
 screen = pygame.display.set_mode((screen_width,screen_heigh))
 pygame.display.set_caption("Pong")
 screen.fill(BG_COLOR)
+#Texts
+game_font = pygame.font.Font("freesansbold.ttf",32)
+
 #Player instances
 player = Player(10,80,20,(screen_heigh/2)-40,7,screen)
 opponent = Player(10,80,screen_width - 20,(screen_heigh/2)-40,7,screen)
@@ -54,6 +58,9 @@ def main():
         player.draw()
         opponent.draw()
         ball.draw()
+        ball.UpdateScore(player,opponent)
+        player.updateText(-30)
+        opponent.updateText(30)
         pygame.draw.aaline(screen,(255,255,255),(screen_width/2,0), (screen_width/2,screen_heigh))
         
         
