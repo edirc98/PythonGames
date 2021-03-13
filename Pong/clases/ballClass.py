@@ -1,4 +1,5 @@
 import pygame
+import random
 class Ball:
     __BallColor = (255,255,255)
     def __init__(self,width,height,x,y,speed,screen):
@@ -19,10 +20,14 @@ class Ball:
         if self.__rect.top <= 0 or self.__rect.bottom >= self.__screen.get_height():
             self.__speed[1] *= -1
         if self.__rect.left <=0 or self.__rect.right >= self.__screen.get_width():
-            self.__speed[0] *= -1
-
+            self.ballRestart()
     def playerCollision(self):
         self.__speed[0] *= -1
+    
+    def ballRestart(self):
+        self.__rect.center = (self.__screen.get_width()/2,self.__screen.get_height()/2)
+        self.__speed[0] *= random.choice((1,-1))
+        self.__speed[1] *= random.choice((1,-1))
 
     def draw(self):
         pygame.draw.ellipse(self.__screen,self.__color,self.__rect)
